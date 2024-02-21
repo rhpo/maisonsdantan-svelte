@@ -35,7 +35,7 @@
   }
 
   .hero {
-    background-image: url("../../background2.jpg");
+    background-image: url("$lib/static/background2.jpg");
     background-repeat: no-repeat;
     background-position: center center;
 
