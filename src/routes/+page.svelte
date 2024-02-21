@@ -1,59 +1,33 @@
-<script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
-</script>
+<script lang="ts">
+	import { onMount } from "svelte";
+	import Two from "$lib/pages/two.svelte";
+	import Hero from "$lib/pages/hero.svelte";
+	import Three from "$lib/pages/three.svelte";
 
-<svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
-</svelte:head>
+	import aos from "aos";
 
-<section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
-		</span>
+	onMount(() => {
+	  aos.init();
+	});
+  </script>
 
-		to your new<br />SvelteKit app
-	</h1>
+  <Hero />
 
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
+  <Two />
+  <Three />
 
-	<Counter />
-</section>
+  <img class="hero-last" src="../../../static/images/hero.jpg" alt="" />
 
-<style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
+  <style>
+	.hero-last {
+	  width: 100%;
+	  transform: translateY(6px);
 	}
 
-	h1 {
-		width: 100%;
+	@media screen and (max-width: 680px) {
+	  .hero-last {
+		min-height: 80vh;
+		object-fit: cover;
+	  }
 	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
-</style>
+  </style>
