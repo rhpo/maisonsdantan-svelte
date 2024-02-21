@@ -1,14 +1,16 @@
 <script>
-  const i1 = "../../../static/images/1.jpg";
-  const i2 = "../../../static/images/2.jpg";
-  const i3 = "../../../static/images/3.jpg";
-  const i4 = "../../../static/images/4.jpg";
+
+  import i1 from "$lib/static/images/1.jpg";
+  import i2 from "$lib/static/images/2.jpg";
+  import i3 from "$lib/static/images/3.jpg";
+  import i4 from "$lib/static/images/4.jpg";
+
   import { onMount } from "svelte";
   import Image from "$lib/image.svelte";
 
   const stock = Array.from(
     { length: 16 },
-    (_, i) => `../../../static/images/${i + 1}.jpg`
+    (_, i) => `/images/${i + 1}.jpg`
   ).reduce((obj, imagePath, index) => {
     obj[`i${index + 1}`] = imagePath;
     return obj;

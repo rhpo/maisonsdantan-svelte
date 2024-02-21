@@ -149,12 +149,12 @@
 
   .i1,
   .i4 {
-    background-image: url(../../../static/images/s1.jpeg);
+    background-image: url($lib/static/images/s1.jpeg);
   }
 
   .i2,
   .i3 {
-    background-image: url(../../../static/images/s2.jpeg);
+    background-image: url($lib/static/images/s2.jpeg);
   }
 
   :global(.showcase) {

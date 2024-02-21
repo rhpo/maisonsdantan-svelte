@@ -1,7 +1,12 @@
+
+<script>
+  import logo from '$lib/static/images/logo.png';
+</script>
+
 <div class="all">
   <div class="every" data-aos="fade-down">
     <div class="logo-sticker" data-aos="zoom-in" data-aos-duration="500">
-      <img src="../../../static/images/logo.png" alt="" />
+      <img src={logo} alt="" />
     </div>
     <div class="content">
       <section class="sec1">
@@ -144,7 +149,7 @@
   }
 
   .sec3 li p {
-    line-height: 1px;
+    line-height: 30px;
   }
 
   .sec3 ul {

@@ -7,6 +7,9 @@
 	import "tippy.js/dist/tippy.css"; // optional
 	import "tippy.js/animations/perspective.css";
 
+	import palmier from "$lib/static/icons/palmier.svg";
+	import dromadaire from "$lib/static/icons/dromadaire.svg";
+
 	import Menu from "$lib/menu.svelte";
 	// import { Hamburger } from "svelte-hamburgers";
 
@@ -247,7 +250,7 @@
 				animation: "perspective",
 			  }}
 			>
-			  <img src="../../static/icons/palmier.svg" alt="" />
+			  <img src={palmier} alt="" />
 			  <p>COMPTE</p>
 			</div>
 			<div
@@ -259,7 +262,7 @@
 				animation: "perspective",
 			  }}
 			>
-			  <img src="../../static/icons/dromadaire.svg" alt="" />
+			  <img src={dromadaire} alt="" />
 			  <p>PANIER</p>
 			</div>
 

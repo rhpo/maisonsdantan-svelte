@@ -26,6 +26,8 @@
 	"type": "module",
 	"dependencies": {
 		"aos": "^2.3.4",
-		"svelte-tippy": "^1.3.2"
+		"svelte-tippy": "^1.3.2",
+		"tippy.js": "^6.3.7",
+		"vanilla-tilt-svelte": "^1.0.4"
 	}
 }

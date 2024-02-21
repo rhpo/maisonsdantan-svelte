@@ -6,6 +6,8 @@
 
 	import aos from "aos";
 
+	import hero from '$lib/static/images/hero.jpg';
+
 	onMount(() => {
 	  aos.init();
 	});
@@ -16,7 +18,7 @@
   <Two />
   <Three />
 
-  <img class="hero-last" src="../../../static/images/hero.jpg" alt="" />
+  <img class="hero-last" src={hero} alt="" />
 
   <style>
 	.hero-last {
