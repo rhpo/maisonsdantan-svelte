@@ -71,7 +71,11 @@
 }
 
 body {
-  margin: 0
+  margin: 0;
+  cursor: var(--cursor-default);
+
+  background-color: var(--n-background);
+
 }
 
 .glow {
@@ -115,6 +119,7 @@ html {
   height: 100%;
   margin: 0;
 
+
 }
 
 /* Hide the default scrollbar */
@@ -152,10 +157,6 @@ img {
 [data-tippy-root] {
   font-family: var(--f-primary);
   font-size: 24px !important;
-}
-
-body {
-  cursor: var(--cursor-default);
 }
 
 p,

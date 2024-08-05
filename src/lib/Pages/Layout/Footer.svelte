@@ -26,6 +26,7 @@
     faFacebook,
     faTiktok,
     faLinkedin,
+    faWhatsapp,
   } from "@fortawesome/free-brands-svg-icons";
 </script>
 
@@ -119,19 +120,22 @@
 
         <section class="informations">
           <div class="info">
-            <h2>Showroom Alger</h2>
-            <p>Said Hamdine, Bir Mourad Raïs, Algérie</p>
+            <h2>Nous sommes sur WhatsApp!</h2>
+            <a
+              class="whatsapp"
+              target="_blank"
+              href="https://api.whatsapp.com/send?phone=+213559620682&text=Bonjour, je veux passer une commande chez MAISONS D'ANTAN."
+            >
+              <Fa icon={faWhatsapp} />
+              Envoyez-nous un message
+            </a>
           </div>
 
           <div class="info">
             <u>Acceuil Téléphonique</u>
             <ul>
-              <li>
-                <p>De Samedi à Jeudi</p>
-              </li>
-              <li>
-                <p>de 9h jusqu'à 18h</p>
-              </li>
+              <li>De Samedi à Jeudi</li>
+              <li>de 9h jusqu'à 18h</li>
             </ul>
           </div>
 
@@ -163,6 +167,35 @@
 </div>
 
 <style>
+  .whatsapp {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+
+    /* whatsapp background color */
+    background-color: #25d366;
+
+    width: fit-content;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+
+    cursor: var(--cursor-pointer);
+
+    transition: all var(--animation-duration) ease;
+  }
+
+  .whatsapp:hover {
+    background-color: #128c7e;
+    transform: scale(1.05);
+  }
+
+  .whatsapp:active {
+    transform: scale(0.95);
+  }
+
   .copyright {
     background-color: black;
     color: white;
@@ -175,6 +208,12 @@
   .wrapper {
     width: 100%;
     overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
   }
 
   .wrapper-all {

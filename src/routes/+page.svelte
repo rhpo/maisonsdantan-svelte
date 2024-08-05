@@ -58,6 +58,8 @@
     align-items: center;
 
     overflow-x: hidden;
+
+    background-color: var(--n-color);
   }
 
   section {

@@ -53,17 +53,16 @@
   <div class="poster">
     <div class="content">
       <div class="info">
-        <h1>
-          Plus de <span class="number">43.000</span> modèles disponibles...
-        </h1>
+        <h1>Des papiers peints panoramiques</h1>
         <p>
-          Découvrez une incroyable variété de plus de 50.000 modèles de papier
-          peint provenant des éditeurs de renom à travers le monde, pour donner
-          vie à vos idées de décoration.
+          Les décors Maisons d’Antan, uniques et intemporels, transforment vos
+          intérieurs avec des papiers peints panoramiques sur mesure. Nos
+          modèles, inspirés d’ambiances variées, s’adaptent à votre style et à
+          de grandes dimensions.
         </p>
       </div>
 
-      <div class="images">
+      <div class="images" data-aos="fade-left">
         {#each chunks as chunk}
           <div class="frame" data-aos="slide-left">
             <Image src={chunk} bind:i alt="model" class="showcase" />
@@ -106,10 +105,6 @@
 
   .info p {
     font-size: var(--paragraph-size);
-  }
-
-  .info .number {
-    text-decoration: wavy underline;
   }
 
   /* Images, Images => Frame */

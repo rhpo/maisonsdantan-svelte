@@ -38,13 +38,10 @@
     }
 
     .icon {
+        width: fit-content;
         min-width: 1.3rem;
         display: flex;
         justify-content: center;
         align-items: center;
-    }
-
-    a :global(svg) {
-        width: fit-content;
     }
 </style>

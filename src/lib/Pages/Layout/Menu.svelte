@@ -44,8 +44,7 @@
     width: 100%;
     height: 100%;
 
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(20px);
+    background-color: #fffffff0;
 
     /* shadow on the right that is widely spread */
     box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.5);

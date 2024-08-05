@@ -1,4 +1,6 @@
 import adapter from '@sveltejs/adapter-auto';
+import svelte_preprocess from 'svelte-preprocess'
+import autoprefixer from 'autoprefixer'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -12,6 +14,14 @@ const config = {
 	optimizeDeps: {
 		exclude: ['svelte-hamburgers', 'svelte-fa', 'svelte-pdf']
 	},
+
+	preprocess: [
+		svelte_preprocess({
+			postcss: {
+				plugins: [autoprefixer()]
+			}
+		})
+	]
 };
 
 export default config;

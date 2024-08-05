@@ -4,7 +4,7 @@ import cardImage from "$lib/assets/card.jpg";
 
 export const notification = writable({
     show: true,
-    message: 'Livraison disponible sur tout le téritoire national est gratuit à partir de 30.000 DA d\'achat.',
+    message: 'Livraison partout en Algérie.',
     icon: faShippingFast,
     colors: {
         background: 'black',

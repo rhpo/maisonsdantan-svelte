@@ -7,7 +7,7 @@
     <div class="hero">
       <div class="info">
         <h1 data-aos="fade-right" data-aos-duration="2500">
-          Le <span class="selection glow">papier peint</span> panoramique...
+          Le papier peint panoramique...
           <br />L'art du paysage
         </h1>
         <p
@@ -24,11 +24,6 @@
 </main>
 
 <style>
-  .selection {
-    color: palegreen;
-    /* glow green */
-  }
-
   @keyframes logo-animation {
     0% {
       stroke-opacity: 0.6;
