@@ -1,5 +1,5 @@
 <script>
-    import Link from "$lib/components/Link.svelte";
+    import Link from "$lib/Components/Link.svelte";
 
     export let mobile = false;
 
