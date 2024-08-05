@@ -3,44 +3,50 @@
   import Image from "$lib/Components/Image.svelte";
   import Container from "$lib/Components/Container.svelte";
 
-  let splitChunks = (arr, len) => {
-    let chunks = [];
-    let i = 0;
-    let n = arr.length;
+  import I1 from "$lib/assets/models/1.jpg";
+  import I2 from "$lib/assets/models/2.jpg";
+  import I3 from "$lib/assets/models/3.jpg";
+  import I4 from "$lib/assets/models/4.jpg";
+  import I5 from "$lib/assets/models/5.jpg";
+  import I6 from "$lib/assets/models/6.jpg";
+  import I7 from "$lib/assets/models/7.jpg";
+  import I8 from "$lib/assets/models/8.jpg";
+  import I9 from "$lib/assets/models/9.jpg";
+  import I10 from "$lib/assets/models/10.jpg";
+  import I11 from "$lib/assets/models/11.jpg";
+  import I12 from "$lib/assets/models/12.jpg";
+  import I13 from "$lib/assets/models/13.jpg";
+  import I14 from "$lib/assets/models/14.jpg";
+  import I15 from "$lib/assets/models/15.jpg";
+  import I16 from "$lib/assets/models/16.jpg";
+  import { minLenArr, splitChunks } from "$lib/utility";
 
-    while (i < n) {
-      chunks.push(arr.slice(i, (i += len)));
-    }
+  let images = [
+    I1,
+    I2,
+    I3,
+    I4,
+    I5,
+    I6,
+    I7,
+    I8,
+    I9,
+    I10,
+    I11,
+    I12,
+    I13,
+    I14,
+    I15,
+    I16,
+  ];
 
-    return chunks;
-  };
+  let chunks = splitChunks(images, images.length / 4),
+    max = minLenArr(chunks);
 
-  let images = [];
-  $: chunks = splitChunks(images, images.length / 4);
-
-  let n = 0;
-  let max = 0;
+  let i = 0;
   let delay = 2000;
 
-  onMount(() => {
-    images = Object.keys(
-      import.meta.glob("$lib/assets/models/*.jpg", { eager: true }),
-    );
-
-    function findMinArrayLength(matrix) {
-      let minLength = matrix[0].length;
-
-      for (let i = 1; i < matrix.length; i++)
-        matrix[i].length < minLength && (minLength = matrix[i].length);
-
-      return minLength;
-    }
-
-    chunks = splitChunks(images, images.length / 4);
-    max = findMinArrayLength(chunks);
-
-    setInterval(() => (n = n === max - 1 ? 0 : n + 1), delay);
-  });
+  onMount(() => setInterval(() => (i = i === max - 1 ? 0 : i + 1), delay));
 </script>
 
 <Container center>
@@ -57,10 +63,10 @@
         </p>
       </div>
 
-      <div class="images" data-listener>
-        {#each chunks as chunk, i}
-          <div class="frame">
-            <Image src={chunk} {n} alt="model" class="showcase" />
+      <div class="images">
+        {#each chunks as chunk}
+          <div class="frame" data-aos="slide-left">
+            <Image src={chunk} bind:i alt="model" class="showcase" />
           </div>
         {/each}
       </div>
@@ -117,14 +123,7 @@
     width: 100%;
     height: fit-content;
 
-    filter: blur(5px);
-    transform: scale(0.5);
     transition: all 5s cubic-bezier(0.12, 0.78, 0, 0.99);
-  }
-
-  :global(.images.shown) {
-    transform: scale(1) !important;
-    filter: blur(0) !important;
   }
 
   .images .frame {

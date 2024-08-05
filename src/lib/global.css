@@ -8,6 +8,7 @@
 
   --stroke-w: 4px;
   --logo-gap: 0.3rem;
+  --sticker-size: 65px;
 
   --progress: 0;
   --progress-height: 0.2rem;
@@ -26,10 +27,13 @@
 
   --gap: 3rem;
 
+  --page-padding-real: 3rem;
+  --page-padding: calc(var(--page-padding-real) + var(--nav-height));
+
   /* Navigation Bar */
   --header-height: 110px;
   --nav-scalar: 0.6;
-  --notification-height: 2.8rem;
+  --notification-height: 3.75rem;
   --nav-height: calc(var(--header-height) + var(--notification-height));
 
   /* Notification */
@@ -110,6 +114,7 @@ html {
   width: 100%;
   height: 100%;
   margin: 0;
+
 }
 
 /* Hide the default scrollbar */
@@ -140,8 +145,8 @@ img {
 }
 
 ::selection {
-  background: var(--primary);
-  color: var(--secondary);
+  background-color: orange;
+  color: black;
 }
 
 [data-tippy-root] {

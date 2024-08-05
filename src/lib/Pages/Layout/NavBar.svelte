@@ -12,7 +12,7 @@
     import { tippy } from "svelte-tippy";
     import { slide } from "svelte/transition";
     import { Hamburger } from "svelte-hamburgers";
-    import { notification } from "$lib/store.js";
+    import { menuOpen, notification } from "$lib/store.js";
 
     import {
         faHome,
@@ -23,11 +23,15 @@
 
     import { onMount } from "svelte";
     import Container from "$lib/Components/Container.svelte";
+    import Links from "$lib/Components/Links.svelte";
 
     const css = (name, value) =>
         document.documentElement.style.setProperty("--" + name, value);
 
-    let open, header, logo;
+    let open = false;
+    $: menuOpen.set(open);
+
+    let header, logo;
     function setupScroll() {
         let previousTop = 0,
             header = document.querySelector("header"),
@@ -37,8 +41,6 @@
 
         if (header && logo) {
             window.addEventListener("scroll", () => {
-                // update --progress
-
                 let progress =
                     window.scrollY /
                     (document.body.scrollHeight - window.innerHeight);
@@ -70,8 +72,10 @@
         }
     }
 
-    onMount(() => setupScroll());
+    onMount(setupScroll);
 </script>
+
+<Menu bind:open />
 
 <main>
     <div class="head">
@@ -84,24 +88,7 @@
             <header bind:this={header}>
                 <div class="item navigation">
                     <div class="links">
-                        <Link
-                            url="/products"
-                            icon={faHome}
-                            name="Home"
-                            description="Accéder à la page d'acceuil."
-                        />
-                        <Link
-                            url="/products"
-                            icon={faShoppingBag}
-                            name="Produits"
-                            description="Découvrir diverts produits et papiers peints."
-                        />
-                        <Link
-                            url="/products"
-                            icon={faPhone}
-                            name="Contact"
-                            description="Contacter nous vers E-Mail ou numéro de téléphone."
-                        />
+                        <Links />
                     </div>
                 </div>
                 <div class="item main-item centered limited">
@@ -109,9 +96,7 @@
                         <Hamburger bind:open />
                     </div>
 
-                    <div
-                        style="max-height: calc(var(--header-height) * var(--nav-scalar)); height: 100%;"
-                    >
+                    <div class="logo-wrapper">
                         <Logo />
                     </div>
 
@@ -119,7 +104,7 @@
                         class="top hamburger-button"
                         style="height: 0; overflow: hidden"
                     >
-                        <Hamburger bind:open />
+                        <Hamburger />
                     </div>
                 </div>
                 <div class="item">
@@ -132,7 +117,7 @@
                         />
 
                         <Link
-                            url="/account"
+                            url="/panier"
                             icon={dromadaire}
                             name="Panier"
                             description="Voir votre panier et vos achats en cours."
@@ -140,15 +125,32 @@
                     </div>
                 </div>
             </header>
-
-            <div class="progress-wrapper">
-                <div class="progress"></div>
-            </div>
         </Container>
+
+        <div class="progress-wrapper">
+            <div class="progress"></div>
+        </div>
     </div>
 </main>
 
 <style>
+    main {
+        z-index: 1000;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: var(--nav-height);
+
+        transition: all var(--animation-duration) ease;
+    }
+
+    .head {
+        position: relative;
+    }
+
     .progress-wrapper {
         width: 100%;
         border-radius: var(--progress-height);
@@ -156,6 +158,11 @@
         height: var(--progress-height);
 
         opacity: 0.5;
+
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        z-index: 1000;
     }
 
     .progress {
@@ -175,6 +182,7 @@
 
     :global(.hamburger-button button) {
         padding: 0 !important;
+        cursor: var(--cursor-pointer) !important;
     }
 
     .limited {
@@ -252,6 +260,11 @@
         display: none;
     }
 
+    .logo-wrapper {
+        height: 100%;
+        max-height: calc(var(--header-height) * var(--nav-scalar));
+    }
+
     @media screen and (max-width: 972px) {
         .navigation {
             display: none;
@@ -264,11 +277,19 @@
         .hidden {
             display: block;
         }
+
+        .main-item {
+            gap: 1.2rem;
+        }
     }
 
-    @media screen and (max-width: 640px) {
+    @media screen and (max-width: 740px) {
         .item:not(.main-item) {
             display: none;
+        }
+
+        :global(html) {
+            --margin: 2rem !important;
         }
 
         .main-item {
@@ -280,14 +301,9 @@
         }
     }
 
-    @media screen and (max-width: 416px) {
-        .limited {
-            padding-left: 0;
-            padding-right: 0;
-        }
-
-        :global(html) {
-            --margin: 2rem !important;
+    @media screen and (max-width: 420px) {
+        .logo-wrapper {
+            height: fit-content;
         }
     }
 </style>

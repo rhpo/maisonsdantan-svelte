@@ -2,7 +2,45 @@
   import Hero from "$lib/Pages/Home/Hero.svelte";
   import Frames from "$lib/Pages/Home/Frames.svelte";
   import AvailableModels from "$lib/Pages/Home/AvailableModels.svelte";
+
+  import { informations } from "$lib/store";
+  import { MetaTags } from "svelte-meta-tags";
 </script>
+
+<MetaTags
+  title={$informations.title}
+  description={$informations.description}
+  canonical={$informations.url}
+  titleTemplate="%s | {$informations.name}"
+  openGraph={{
+    title: $informations.title,
+    description: $informations.description,
+    url: $informations.url,
+    siteName: $informations.name,
+    images: [
+      {
+        url: $informations.image,
+        width: 1200,
+        height: 630,
+        alt: $informations.title,
+      },
+    ],
+  }}
+  twitter={{
+    handle: "@handle",
+    site: "@site",
+    cardType: "summary_large_image",
+    title: $informations.title,
+    description: $informations.description,
+    image: $informations.image,
+    imageAlt: $informations.name,
+  }}
+  additionalRobotsProps={{
+    "data-n-head": "true",
+    "data-hid": "robots",
+    content: "noindex, nofollow",
+  }}
+/>
 
 <main>
   <Hero />
@@ -18,6 +56,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    overflow-x: hidden;
   }
 
   section {

@@ -4,14 +4,19 @@
 
   import Fa from "svelte-fa";
 
-  export let url, name, icon, description;
+  export let url,
+    name,
+    icon,
+    description,
+    inline = false;
 </script>
 
 <a
   class="link"
+  class:inline
   href={url}
   use:tippy={{
-    zIndex: description ? 9999 : -1,
+    zIndex: description && !inline ? 1000 : -1,
     content: description,
     placement: "bottom",
     arrow: true,
@@ -37,9 +42,9 @@
   }
 
   .image {
+    overflow: hidden;
     width: 100%;
     max-height: calc(var(--header-height) * var(--nav-scalar));
-    overflow: hidden;
     transition: all var(--animation-duration);
   }
 
@@ -70,6 +75,24 @@
     height: 100%;
   }
 
+  .link.inline {
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: flex-start;
+
+    height: fit-content;
+    width: fit-content;
+  }
+
+  .link.inline:hover {
+    text-decoration: underline;
+  }
+
+  .link.inline .image {
+    width: fit-content;
+    min-width: 30px;
+  }
+
   .link,
   .link * {
     cursor: var(--cursor-pointer);
@@ -95,12 +118,12 @@
     max-height: 3rem;
   }
 
-  .link:hover {
+  .link:not(.inline):hover {
     border: 1px dashed var(--secondary);
   }
 
-  .link:hover img,
-  :global(.link:hover svg) {
+  .link:not(.inline):hover .image,
+  :global(.link:hover image) {
     transform: scale(1.1) translateY(-5px);
   }
 </style>

@@ -1,11 +1,29 @@
 <script>
+    import { faX } from "@fortawesome/free-solid-svg-icons";
     import { slide } from "svelte/transition";
     import { notification } from "$lib/store";
+
     import Fa from "svelte-fa";
     import Container from "./Container.svelte";
-    import { faX } from "@fortawesome/free-solid-svg-icons";
+    import { onMount } from "svelte";
 
     export let message, icon;
+
+    onMount(() => {
+        notification.subscribe((value) => {
+            if (!value.show) {
+                document.documentElement.style.setProperty(
+                    "--notification-height",
+                    "0rem",
+                );
+            } else {
+                document.documentElement.style.setProperty(
+                    "--notification-height",
+                    "3.75rem",
+                );
+            }
+        });
+    });
 </script>
 
 {#if $notification.show}
@@ -20,8 +38,10 @@
                 </div>
 
                 <button
+                    on:click={() => {
+                        notification.update((n) => ({ ...n, show: false }));
+                    }}
                     class="close"
-                    on:click={() => ($notification.show = false)}
                 >
                     <Fa icon={faX} />
                 </button>
@@ -43,8 +63,9 @@
         gap: 0.5rem;
 
         height: var(--notification-height);
-
         line-height: 1;
+
+        transition: all var(--animation-duration);
     }
 
     .close {
@@ -56,6 +77,7 @@
 
     .notification p {
         margin: 0;
+        font-family: var(--f-third);
     }
 
     .wrapper {
@@ -73,13 +95,9 @@
         gap: 0.5rem;
     }
 
-    @media screen and (max-width: 725px) {
+    @media screen and (max-width: 768px) {
         .notification {
             font-size: 0.8rem;
-        }
-
-        :global(body) {
-            --notification-height: 60px;
         }
     }
 </style>

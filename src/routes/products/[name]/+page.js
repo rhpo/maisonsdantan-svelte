@@ -2,8 +2,11 @@ export async function load({ params }) {
 
     if (!params.name)
         return {
-            name: params.name || 'Unknown'
+            name: 'Unknown'
         }
 
-    throw ("404 Error");
+    return {
+        name: params.name
+    }
+
 }

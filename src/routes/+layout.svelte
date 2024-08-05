@@ -3,13 +3,17 @@
   import "tippy.js/dist/tippy.css";
   import "tippy.js/animations/perspective.css";
 
+  // META IMAGES
+  import icon from "$lib/assets/icon.png";
+
   import NavBar from "$lib/Pages/Layout/NavBar.svelte";
 
   import { onMount } from "svelte";
-  import { notification } from "$lib/store.js";
+  import { informations, notification } from "$lib/store.js";
 
   import AOS from "aos";
   import Footer from "$lib/Pages/Layout/Footer.svelte";
+  import { MetaTags } from "svelte-meta-tags";
 
   onMount(() => {
     function css(name, value) {
@@ -35,8 +39,45 @@
   });
 </script>
 
+<svelte:head>
+  <link rel="icon" type="image/png" href={icon} />
+</svelte:head>
+
+<MetaTags
+  title={$informations.title}
+  description={$informations.description}
+  canonical={$informations.url}
+  titleTemplate="%s | {$informations.name}"
+  openGraph={{
+    title: $informations.title,
+    description: $informations.description,
+    url: $informations.url,
+    siteName: $informations.name,
+    images: [
+      {
+        url: $informations.image,
+        width: 1200,
+        height: 630,
+        alt: $informations.title,
+      },
+    ],
+  }}
+  twitter={{
+    handle: "@handle",
+    site: "@site",
+    cardType: "summary_large_image",
+    title: $informations.title,
+    description: $informations.description,
+    image: $informations.image,
+    imageAlt: $informations.name,
+  }}
+  additionalRobotsProps={{
+    "data-n-head": "true",
+    "data-hid": "robots",
+    content: "noindex, nofollow",
+  }}
+/>
+
 <NavBar />
-
 <slot />
-
 <Footer />

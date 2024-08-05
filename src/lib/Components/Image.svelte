@@ -2,13 +2,13 @@
   import { fade } from "svelte/transition";
 
   export let src;
-  export let n;
+  export let i;
 </script>
 
 <div>
   {#if Array.isArray(src)}
-    {#each src as src, i}
-      {#if i == n}
+    {#each src as src, n}
+      {#if n == i}
         <img {src} alt="ERR!" {...$$restProps} transition:fade />
       {/if}
     {/each}

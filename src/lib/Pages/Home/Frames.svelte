@@ -4,6 +4,9 @@
   import Image3D from "$lib/Components/Image3D.svelte";
   import s1 from "$lib/assets/models/s1.jpg";
   import s2 from "$lib/assets/models/s2.jpg";
+  import s3 from "$lib/assets/models/s3.jpg";
+  import s4 from "$lib/assets/models/s4.jpg";
+
   import Container from "$lib/Components/Container.svelte";
 </script>
 
@@ -15,17 +18,16 @@
           Découvrez une autre façon de vivre...
         </h1>
         <p data-aos="fade-up" data-aos-duration="1500" data-aos-delay="750">
-          Avec MAISONS D'ANTAN, Explorez une nouvelle façon de vivre avec le
-          papier peint panoramique, révélant une expérience unique et
-          captivante.
+          Explorez une nouvelle façon de vivre avec le papier peint panoramique,
+          révélant une expérience unique et captivante.
         </p>
       </div>
 
       <div class="images" data-listener>
-        <Image3D src={s1} />
+        <Image3D src={s4} />
         <Image3D src={s2} />
-        <Image3D src={s2} />
         <Image3D src={s1} />
+        <Image3D src={s3} />
       </div>
     </div>
   </div>

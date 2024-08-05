@@ -25,17 +25,8 @@
     faInstagram,
     faFacebook,
     faTiktok,
+    faLinkedin,
   } from "@fortawesome/free-brands-svg-icons";
-
-  let animate = false;
-  let logoElement;
-
-  onMount(() => {
-    new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && (animate = true)),
-      { threshold: 0.5 },
-    ).observe(logoElement);
-  });
 </script>
 
 <div class="wrapper-all">
@@ -49,8 +40,8 @@
     <Container>
       <div class="content" data-aos="fade-down">
         <section class="branding">
-          <div class="logo" bind:this={logoElement}>
-            <Logo bind:animate />
+          <div class="logo">
+            <Logo />
           </div>
 
           <p class="description">
@@ -61,14 +52,28 @@
 
           <div class="useful">
             <div class="socials">
-              <Fa icon={faInstagram} />
-              <Fa icon={faFacebook} />
-              <Fa icon={faTiktok} class="tiktok" />
+              <a href="https://www.instagram.com/maisonsdantan" target="_blank">
+                <Fa icon={faInstagram} />
+              </a>
+              <a
+                href="https://www.facebook.com/Maisonsdantann/"
+                target="_blank"
+              >
+                <Fa icon={faFacebook} />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/maisons-d-antan/"
+                target="_blank"
+              >
+                <Fa icon={faLinkedin} />
+              </a>
             </div>
 
             <a class="codiha" href="https://www.codiha.com" target="_blank">
-              Site réalisé par l'agence
-              <img src={codiha} width="15rem" alt="" /> Codiha
+              Site web réalisé par l'agence
+              <div class="brand">
+                <img src={codiha} width="15rem" alt="" /> Codiha
+              </div>
             </a>
           </div>
         </section>
@@ -98,7 +103,7 @@
 
             <LinkIcon
               class="link"
-              href="/guide/professionels"
+              href="/professionels"
               icon={faHelmetSafety}
               name="Pros de Décoration"
             />
@@ -158,6 +163,20 @@
 </div>
 
 <style>
+  .copyright {
+    background-color: black;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-family: var(--f-third);
+    width: 100%;
+  }
+
+  .wrapper {
+    width: 100%;
+    overflow: hidden;
+  }
+
   .wrapper-all {
     display: flex;
     flex-direction: column;
@@ -184,6 +203,8 @@
   }
 
   footer {
+    position: relative;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -212,11 +233,6 @@
     flex: 1;
   }
 
-  .codiha {
-    opacity: 0.5;
-    font-size: 12px;
-  }
-
   .logo {
     width: 100%;
     height: fit-content;
@@ -230,11 +246,12 @@
     transform: translateY(-50%);
 
     background-color: white;
+    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.603);
 
-    padding: 1rem;
+    padding: 0.8rem;
     border-radius: 50%;
-    width: 100px;
-    height: 100px;
+    width: var(--sticker-size);
+    height: var(--sticker-size);
   }
 
   .sticker img:not(.sticker-img) {
@@ -252,8 +269,14 @@
     align-items: center;
   }
 
+  .socials a {
+    color: white;
+    font-size: 1.2rem;
+  }
+
   .branding {
     display: flex;
+    flex: 1.2 !important;
     flex-direction: column;
 
     gap: calc(var(--gap) / 2);
@@ -267,13 +290,27 @@
   .branding .useful {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: calc(var(--gap) / 2);
   }
 
-  .branding .useful .codiha {
+  .codiha {
     font-size: 0.8rem;
     color: white;
     text-decoration: none;
+    opacity: 0.8;
+
+    font-family: var(--f-third);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .codiha .brand {
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    gap: 0.35rem;
   }
 
   .branding .useful .codiha:visited {
@@ -308,14 +345,41 @@
     height: 100%;
   }
 
-  @media screen and (max-width: 880px) {
+  @media screen and (max-width: 1096px) {
     .content {
       flex-direction: column;
       align-items: center;
     }
 
-    section:not(:first-child) {
-      margin-top: 80px;
+    .branding {
+      text-align: center;
+    }
+
+    .branding .description {
+      font-size: 0.8rem;
+    }
+
+    .branding .useful .socials {
+      max-width: 100px;
+    }
+
+    .codiha {
+      align-self: flex-start;
+    }
+
+    .links,
+    .informations {
+      width: 100%;
+      justify-content: left;
+    }
+
+    .useful {
+      width: 100%;
+    }
+
+    .info {
+      width: 100%;
+      font-size: 0.7rem;
     }
   }
 </style>

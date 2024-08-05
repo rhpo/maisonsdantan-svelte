@@ -10,7 +10,7 @@ const config = {
 	},
 
 	optimizeDeps: {
-		exclude: ['svelte-hamburgers', 'svelte-fa']
+		exclude: ['svelte-hamburgers', 'svelte-fa', 'svelte-pdf']
 	},
 };
 

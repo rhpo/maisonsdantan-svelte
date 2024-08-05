@@ -7,7 +7,7 @@
     <div class="hero">
       <div class="info">
         <h1 data-aos="fade-right" data-aos-duration="2500">
-          <span class="selection glow">Le papier peint</span> panoramique...
+          Le <span class="selection glow">papier peint</span> panoramique...
           <br />L'art du paysage
         </h1>
         <p
@@ -88,7 +88,9 @@
     font-size: 4rem;
     font-family: var(--primary);
 
-    letter-spacing: 5px;
+    letter-spacing: 0.35rem;
+
+    max-width: 35rem;
   }
 
   .subtext {
