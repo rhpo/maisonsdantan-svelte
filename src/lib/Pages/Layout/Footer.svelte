@@ -30,8 +30,10 @@
   } from "@fortawesome/free-brands-svg-icons";
 </script>
 
-<div class="wrapper-all">
-  <img class="footer-image" src={footerImage} alt="" />
+<div class="wrapper-all revert">
+  <div class="wrapper revert">
+    <img class="footer-image" src={footerImage} alt="" />
+  </div>
 
   <footer>
     <div class="sticker" data-aos="zoom-in" data-aos-duration="500">
@@ -73,7 +75,9 @@
             <a class="codiha" href="https://www.codiha.com" target="_blank">
               Site web réalisé par l'agence
               <div class="brand">
-                <img src={codiha} width="15rem" alt="" /> Codiha
+                <span class="revert"
+                  ><img src={codiha} width="15rem" alt="" /></span
+                > Codiha
               </div>
             </a>
           </div>
@@ -109,12 +113,12 @@
               name="Pros de Décoration"
             />
 
-            <LinkIcon
+            <!-- <LinkIcon
               class="link"
               href="/signup"
               icon={faUserPlus}
               name="Inscrivez-vous"
-            />
+            /> -->
           </div>
         </section>
 
@@ -180,7 +184,7 @@
 
     width: fit-content;
     padding: 0.5rem 1rem;
-    border-radius: 5px;
+    border-radius: var(--radius);
 
     cursor: var(--cursor-pointer);
 

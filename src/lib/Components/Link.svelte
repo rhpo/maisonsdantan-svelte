@@ -7,6 +7,7 @@
   export let url,
     name,
     icon,
+    external = false,
     description,
     inline = false;
 </script>
@@ -14,6 +15,7 @@
 <a
   class="link"
   class:inline
+  target={external ? "_blank" : "_self"}
   href={url}
   use:tippy={{
     zIndex: description && !inline ? 1000 : -1,
@@ -23,9 +25,9 @@
     animation: "perspective",
   }}
 >
-  <div class="image">
+  <div class="image revert">
     {#if typeof icon === "object"}
-      <Fa {icon} />
+      <span class="revert"><Fa {icon} /></span>
     {:else}
       <img src={icon} alt={name} />
     {/if}

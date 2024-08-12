@@ -5,13 +5,15 @@
 
   import { informations } from "$lib/store";
   import { MetaTags } from "svelte-meta-tags";
+  import { navigating } from "$app/stores";
+  import { fade } from "svelte/transition";
 </script>
 
 <MetaTags
   title={$informations.title}
   description={$informations.description}
   canonical={$informations.url}
-  titleTemplate="%s | {$informations.name}"
+  titleTemplate="%s"
   openGraph={{
     title: $informations.title,
     description: $informations.description,

@@ -2,7 +2,7 @@
   import Container from "$lib/Components/Container.svelte";
 </script>
 
-<main>
+<main class="revert">
   <Container>
     <div class="hero">
       <div class="info">

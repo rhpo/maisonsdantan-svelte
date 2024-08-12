@@ -5,6 +5,7 @@
 
 <div
     style={`--image: url(${src})`}
+    class="revert"
     use:svelteTilt={{
         max: 8,
         glare: true,

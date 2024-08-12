@@ -65,7 +65,9 @@
       <div class="images" data-aos="fade-left">
         {#each chunks as chunk}
           <div class="frame" data-aos="slide-left">
-            <Image src={chunk} bind:i alt="model" class="showcase" />
+            <div class="img">
+              <Image src={chunk} bind:i alt="model" class="showcase" />
+            </div>
           </div>
         {/each}
       </div>
@@ -74,6 +76,15 @@
 </Container>
 
 <style>
+  .img {
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+    box-shadow: 9px 10px 5px 0px rgba(0, 0, 0, 0.2);
+
+    width: 100%;
+    aspect-ratio: 3 / 4;
+  }
   .poster {
     width: 100%;
 

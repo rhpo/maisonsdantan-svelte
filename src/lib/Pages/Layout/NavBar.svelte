@@ -10,15 +10,23 @@
     import Notification from "$lib/Components/Notification.svelte";
 
     import { tippy } from "svelte-tippy";
-    import { slide } from "svelte/transition";
+    import { scale } from "svelte/transition";
     import { Hamburger } from "svelte-hamburgers";
-    import { menuOpen, notification } from "$lib/store.js";
+    import {
+        cart,
+        darkMode,
+        menuOpen,
+        notification,
+        orderID,
+    } from "$lib/store.js";
 
     import {
         faHome,
+        faMoon,
         faPhone,
         faShippingFast,
         faShoppingBag,
+        faSun,
     } from "@fortawesome/free-solid-svg-icons";
 
     import { onMount } from "svelte";
@@ -72,7 +80,25 @@
         }
     }
 
-    onMount(setupScroll);
+    onMount(() => {
+        cart.set(
+            $cart ? $cart : JSON.parse(localStorage.getItem("cart") || "[]"),
+        );
+
+        cart.subscribe((value) => {
+            localStorage.setItem("cart", JSON.stringify(value));
+        });
+
+        orderID.set(
+            $orderID ? $orderID : localStorage.getItem("orderID") || undefined,
+        );
+
+        orderID.subscribe((value) => {
+            localStorage.setItem("orderID", value);
+        });
+
+        setupScroll();
+    });
 </script>
 
 <Menu bind:open />
@@ -100,28 +126,55 @@
                         <Logo />
                     </div>
 
-                    <div
-                        class="top hamburger-button"
-                        style="height: 0; overflow: hidden"
+                    <button
+                        class="theme mobile"
+                        on:click={() => darkMode.update((v) => !v)}
                     >
-                        <Hamburger />
-                    </div>
+                        {#if $darkMode}
+                            <div class="icon" transition:scale>
+                                <Fa icon={faSun} />
+                            </div>
+                        {:else}
+                            <div class="icon" transition:scale>
+                                <Fa icon={faMoon} />
+                            </div>
+                        {/if}
+                    </button>
                 </div>
                 <div class="item">
                     <div class="controls">
                         <Link
-                            url="/account"
+                            url="/guide/catalogue"
                             icon={palmier}
-                            name="Compte"
-                            description="Accéder aux paramètres de votre compte MD."
+                            name="Catalogue"
+                            description="Voir les produits disponibles."
                         />
 
-                        <Link
-                            url="/panier"
-                            icon={dromadaire}
-                            name="Panier"
-                            description="Voir votre panier et vos achats en cours."
-                        />
+                        {#if $cart}
+                            <Link
+                                url="/panier"
+                                icon={dromadaire}
+                                name="Panier {$cart.length > 0
+                                    ? ` (${$cart.length})`
+                                    : ``}"
+                                description="Voir votre panier et vos achats en cours."
+                            />
+                        {/if}
+
+                        <button
+                            class="theme"
+                            on:click={() => darkMode.update((v) => !v)}
+                        >
+                            {#if $darkMode}
+                                <div class="icon" transition:scale>
+                                    <Fa icon={faSun} />
+                                </div>
+                            {:else}
+                                <div class="icon" transition:scale>
+                                    <Fa icon={faMoon} />
+                                </div>
+                            {/if}
+                        </button>
                     </div>
                 </div>
             </header>
@@ -134,6 +187,32 @@
 </main>
 
 <style>
+    .theme {
+        padding: 0;
+        background: none;
+        border: none;
+        outline: none;
+
+        aspect-ratio: 9 / 13;
+        cursor: var(--cursor-pointer);
+
+        position: relative;
+
+        height: 100%;
+    }
+
+    .theme .icon {
+        font-size: 1.5rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: all var(--animation-duration) ease;
+    }
+
+    .theme:hover .icon {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
     main {
         z-index: 1000;
 
@@ -265,7 +344,12 @@
         max-height: calc(var(--header-height) * var(--nav-scalar));
     }
 
-    @media screen and (max-width: 972px) {
+    .theme.mobile {
+        display: none;
+        width: 30px;
+    }
+
+    @media screen and (max-width: 1050px) {
         .navigation {
             display: none;
         }
@@ -283,9 +367,17 @@
         }
     }
 
-    @media screen and (max-width: 740px) {
+    @media screen and (max-width: 810px) {
         .item:not(.main-item) {
             display: none;
+        }
+
+        .theme {
+            display: none;
+        }
+
+        .mobile {
+            display: block !important;
         }
 
         :global(html) {

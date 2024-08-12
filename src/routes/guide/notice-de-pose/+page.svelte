@@ -1,7 +1,7 @@
 <script>
     import Page from "$lib/Components/Page.svelte";
     import Button from "$lib/Components/ui/Button.svelte";
-    import pdf from "$lib/assets/guide.pdf";
+    import pdf from "$lib/assets/guide.jpg";
     import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
     import { onMount } from "svelte";
     import Fa from "svelte-fa";
@@ -29,7 +29,12 @@
             icon={faArrowDown}
             url={pdf}
         />
-        <iframe title="GUIDE DE POSE" src={pdf} width="100%" height="100%"
+
+        <iframe
+            title="GUIDE DE POSE"
+            src={pdf}
+            style="aspect-ratio: 16/9;"
+            width="100%"
         ></iframe>
     </div>
 </Page>
@@ -49,7 +54,7 @@
     button {
         background-color: var(--second);
         border: none;
-        border-radius: 5px;
+        border-radius: var(--radius);
         padding: 10px;
         font-size: 1.5rem;
         cursor: pointer;

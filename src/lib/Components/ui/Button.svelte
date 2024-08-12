@@ -8,11 +8,18 @@
     export let url;
 
     export let newTab = true;
+
+    export let color = "var(--primary)";
+    export let background = "var(--secondary)";
 </script>
 
 {#if url}
     <a href={url} target={newTab ? "_blank" : "_self"}>
-        <button>
+        <button
+            class="inner"
+            {...$$restProps}
+            style="color: {color}; background-color: {background};"
+        >
             {#if icon}
                 <Fa {icon} />
             {/if}
@@ -21,7 +28,11 @@
         </button>
     </a>
 {:else}
-    <button on:click={onClick}>
+    <button
+        on:click={onClick}
+        {...$$restProps}
+        style="color: {color}; background-color: {background};"
+    >
         {#if icon}
             <Fa {icon} />
         {/if}
@@ -31,16 +42,24 @@
 {/if}
 
 <style>
+    a {
+        text-decoration: none;
+    }
+    a:visited {
+        color: inherit;
+    }
+
     button {
-        background-color: var(--secondary);
-        color: var(--primary);
+        /* background-color: var(--secondary);
+        color: var(--primary); */
         border: none;
-        border-radius: 5px;
+        border-radius: var(--radius);
         padding: 10px;
         font-size: 1.1rem;
         cursor: pointer;
 
         display: flex;
+        justify-content: center;
         align-items: center;
         gap: 1rem;
 
@@ -49,7 +68,12 @@
         transition: all var(--animation-duration);
     }
 
-    button:hover {
+    button:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
+    button:not(:disabled):hover {
         background-color: var(--primary);
         color: var(--secondary);
 
