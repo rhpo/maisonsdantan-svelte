@@ -139,7 +139,6 @@
             <u>Acceuil Téléphonique</u>
             <ul>
               <li>De Samedi à Jeudi</li>
-              <li>de 9h jusqu'à 18h</li>
             </ul>
           </div>
 

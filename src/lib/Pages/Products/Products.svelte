@@ -1,5 +1,5 @@
 <script>
-    import { fade } from "svelte/transition";
+    import { fade, scale } from "svelte/transition";
     import Choose from "$lib/Components/ui/Choose.svelte";
     import Fa from "svelte-fa";
     import Page from "$lib/Components/Page.svelte";
@@ -16,6 +16,7 @@
 
     import {
         faArrowLeft,
+        faArrowRight,
         faCartPlus,
         faCheck,
         faFaceFlushed,
@@ -29,10 +30,22 @@
         faObjectGroup,
         faUpDown,
     } from "@fortawesome/free-solid-svg-icons";
+
     import Input from "$lib/Components/ui/Input.svelte";
     import { tippy } from "svelte-tippy";
     import Pattern from "$lib/Components/Pattern.svelte";
     import { configuration } from "$lib/store";
+    import {
+        faImage,
+        faImages,
+        faLightbulb,
+        faSmileBeam,
+        faStar,
+        faStarHalfStroke,
+    } from "@fortawesome/free-regular-svg-icons";
+    import Carousel from "svelte-carousel/src/components/Carousel/Carousel.svelte";
+
+    const MAX_X = 0; // 25
 
     export let data;
     $: product = data.product;
@@ -140,6 +153,16 @@
     let cropMenu = false;
     let imageFrame;
 
+    function openCropMenu() {
+        // check if he entered some dimensions
+        if (!order.width || !order.height) {
+            alert("Veuillez entrer les dimensions de votre papier peint.");
+            return;
+        }
+
+        cropMenu = true;
+    }
+
     $: realAspectRatio = imageFrame
         ? round(imageFrame.offsetWidth / imageFrame.offsetHeight)
         : 1;
@@ -183,6 +206,15 @@
     }
 
     let done = false;
+    let carousel;
+
+    function showNextPage() {
+        carousel.goToNext();
+    }
+
+    function showPrevPage() {
+        carousel.goToPrev();
+    }
 </script>
 
 {#if cropMenu}
@@ -203,7 +235,7 @@
 {/if}
 
 <Page
-    title={"Papier peint " + product.name.toUpperCase()}
+    title={"Papier peint - " + product.name.toUpperCase()}
     description={product.description}
     image={{
         url: product.models[0].image,
@@ -244,8 +276,13 @@
                             product.category
                         ]}
                     </p>
-                    <p class="description">{product.description}</p>
 
+                    <p class="description">{product.description}</p>
+                    <p class="subsubtext">
+                        Variants ({product.models.length}) - {product.models
+                            .map((model) => model.name)
+                            .join(", ")}
+                    </p>
                     {#if order.price}
                         <p class="pricing">
                             Coût de la commande &horbar;
@@ -388,7 +425,7 @@
                                         realAspectRatio
                                             ? "Redémissionnement impossible"
                                             : "Redimensionner"}
-                                        onClick={() => (cropMenu = true)}
+                                        onClick={() => openCropMenu()}
                                         icon={faCrop}
                                         background="var(--sub)"
                                         color="var(--secondary)"
@@ -437,49 +474,104 @@
                 </div>
             </div>
 
-            <div class="visual">
-                {#key $isMobile}
-                    <div
-                        class="image"
-                        bind:this={imageFrame}
-                        use:svelteTilt={{
-                            startX: $isMobile ? 0 : 25,
-                            speed: 1000,
-                            glare: true,
-                        }}
-                    >
-                        {#if product.shape === "pano"}
-                            <Image
-                                src={product.models.map((model) => model.image)}
-                                i={currentModel}
-                                adapt
-                                bind:crop={imageCrop}
-                                dimensions={{
-                                    width: order.width,
-                                    height: order.height,
-                                }}
-                                onClick={() => (cropMenu = true)}
-                            />
-                        {:else if product.shape === "pattern"}
-                            <Image
-                                src={product.models.map((model) => model.image)}
-                                i={currentModel}
-                                adapt
-                            />
-                        {/if}
+            <div class="visual-wrapper">
+                <div class="shootings-wrapper">
+                    <div class="shootings">
+                        {#key currentModel}
+                            <Carousel
+                                bind:this={carousel}
+                                arrows={false}
+                                autoplay={product.models[currentModel].shootings
+                                    .length > 1}
+                                dots={product.models[currentModel].shootings
+                                    .length > 1}
+                                autoplayProgressVisible={product.models[
+                                    currentModel
+                                ].shootings.length > 1}
+                                autoplayDuration={8000}
+                            >
+                                {#each product.models[currentModel].shootings as shooting}
+                                    <div class="shooting" transition:fade>
+                                        <img
+                                            src={shooting.image}
+                                            alt={shooting.id}
+                                            transition:scale
+                                        />
+                                    </div>
+                                {/each}
+                            </Carousel>
+                        {/key}
                     </div>
-                {/key}
 
-                <div class="sub-images">
-                    {#each product.models as model, index}
-                        <button
-                            class="sub-image"
-                            on:click={() => (currentModel = index)}
-                            class:active={currentModel === index}
+                    <div class="controls">
+                        <Button
+                            icon={faArrowLeft}
+                            title=""
+                            disabled={product.models[currentModel].shootings
+                                .length < 2}
+                            onClick={() => showPrevPage()}
+                        />
+
+                        <Button
+                            icon={faArrowRight}
+                            title=""
+                            disabled={product.models[currentModel].shootings
+                                .length < 2}
+                            onClick={() => showNextPage()}
+                        />
+                    </div>
+                </div>
+
+                <div class="visual">
+                    <h2>Choisissez votre cadrage</h2>
+                    {#key $isMobile}
+                        <div
+                            class="image"
+                            bind:this={imageFrame}
+                            use:svelteTilt={{
+                                startX: $isMobile ? 0 : MAX_X,
+                                speed: 1000,
+                                max: $isMobile ? 0 : MAX_X,
+                                glare: !$isMobile && MAX_X,
+                            }}
                         >
-                            <img src={model.image} alt={model.name} />
-                        </button>
-                    {/each}
+                            {#if product.shape === "pano"}
+                                <Image
+                                    src={product.models.map(
+                                        (model) => model.image,
+                                    )}
+                                    i={currentModel}
+                                    adapt
+                                    bind:crop={imageCrop}
+                                    dimensions={{
+                                        width: order.width,
+                                        height: order.height,
+                                    }}
+                                    onClick={() => openCropMenu()}
+                                />
+                            {:else if product.shape === "pattern"}
+                                <Image
+                                    src={product.models.map(
+                                        (model) => model.image,
+                                    )}
+                                    i={currentModel}
+                                    adapt
+                                />
+                            {/if}
+                        </div>
+                    {/key}
+
+                    <div class="sub-images">
+                        {#each product.models as model, index}
+                            <button
+                                class="sub-image"
+                                on:click={() => (currentModel = index)}
+                                class:active={currentModel === index}
+                            >
+                                <img src={model.image} alt={model.name} />
+                            </button>
+                        {/each}
+                    </div>
                 </div>
             </div>
         </div>
@@ -487,6 +579,43 @@
 </Page>
 
 <style>
+    .shootings-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .controls {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 0.5rem;
+    }
+
+    .controls > :global(*) {
+        width: 100%;
+    }
+
+    .shootings {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .shooting {
+        flex-grow: 1;
+        object-fit: cover;
+
+        border-radius: 0.8rem;
+        overflow: hidden;
+
+        /* inner shadow */
+    }
+
+    .shooting img {
+        width: 100%;
+    }
+
     :root {
         --g: 0.5rem;
     }
@@ -567,7 +696,7 @@
 
         overflow: hidden;
 
-        z-index: 999999;
+        z-index: 99999999999;
     }
 
     .cropper .validate {
@@ -691,7 +820,6 @@
         flex-direction: row;
 
         gap: 3rem;
-        align-items: center;
         justify-content: space-between;
 
         width: 100%;
@@ -702,6 +830,7 @@
         flex-direction: column;
         gap: 2rem;
 
+        justify-content: start;
         max-width: 60%;
     }
 
@@ -752,14 +881,24 @@
         text-transform: uppercase;
     }
 
+    .page .subsubtext {
+        font-size: 0.8rem;
+        font-weight: 300;
+    }
+
+    .visual-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        width: 50%;
+    }
+
     .visual {
         display: flex;
         flex-direction: row;
 
-        height: 100%;
         gap: 1rem;
-
-        flex: 1;
     }
 
     .sub-images {
@@ -816,9 +955,17 @@
     }
 
     @media screen and (max-width: 965px) {
+        .visual-wrapper {
+            gap: 3rem;
+        }
+
         .page {
             flex-direction: column-reverse;
             gap: 2rem;
+        }
+
+        .visual-wrapper {
+            width: 100%;
         }
 
         .total {
@@ -854,7 +1001,7 @@
 
         .sub-images {
             flex-direction: row;
-            justify-content: flex-end;
+            justify-content: center;
         }
 
         .sub-images button img {

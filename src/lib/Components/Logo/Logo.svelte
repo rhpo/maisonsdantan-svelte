@@ -91,9 +91,9 @@
       fill: transparent;
     }
     55% {
+      fill: var(--logo-color);
       stroke-dashoffset: 0;
       stroke-opacity: 1;
-      fill: var(--logo-color);
     }
     100% {
       fill: var(--logo-color);

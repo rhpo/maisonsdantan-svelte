@@ -4,6 +4,8 @@
     export let title = "Click me ";
     export let icon;
 
+    export let disabled = false;
+
     export let onClick;
     export let url;
 
@@ -30,6 +32,8 @@
 {:else}
     <button
         on:click={onClick}
+        {disabled}
+        class:disabled
         {...$$restProps}
         style="color: {color}; background-color: {background};"
     >
@@ -47,6 +51,10 @@
     }
     a:visited {
         color: inherit;
+    }
+
+    .disabled {
+        cursor: not-allowed;
     }
 
     button {

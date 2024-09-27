@@ -59,11 +59,11 @@
         <input
             class="input"
             {type}
-            {value}
             {placeholder}
             bind:this={inp}
             on:input={handleInput}
             on:blur={() => (everFocused = true)}
+            value={value === 0 ? value : ""}
         />
 
         {#if !valid && everFocused}

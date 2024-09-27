@@ -15,6 +15,8 @@ export async function load({ params }) {
             product: data
         };
     } else {
+        console.clear();
+        console.log(response)
         return error(response.status, await response.text());
     }
 

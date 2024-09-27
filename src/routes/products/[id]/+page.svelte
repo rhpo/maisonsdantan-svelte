@@ -9,7 +9,10 @@
 	}
 
 	function onOrder(order) {
-		orderID.set(undefined);
+		if ($orderID && $orderID !== "undefined") {
+			orderID.set(undefined);
+			cart.set([]);
+		}
 
 		cart.update((value) => {
 			order.uuid = uuid();

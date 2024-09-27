@@ -72,6 +72,25 @@
             alert("Veuillez entrer des informations valides.");
         }
     }
+
+    function phoneFormat(phone) {
+        phone = phone
+            .replace(/\s+/g, "")
+            .replace(/[^0-9+]/g, "")
+            .replace("+213", "")
+            .replace("+", "")
+            .replace("0", "");
+
+        let parts = [];
+
+        let max = 3;
+
+        for (let i = 0; i < phone.length && parts.length < max; i += 3) {
+            parts.push(phone.slice(i, i + 3));
+        }
+
+        return "0" + parts.join(" ");
+    }
 </script>
 
 <Page
@@ -122,11 +141,7 @@
                 placeholder="Numéro de téléphone"
                 icon={faPhone}
                 type="tel"
-                transform={(phone) =>
-                    phone
-                        .replace(/\s+/g, "")
-                        .replace(/[^0-9+]/g, "")
-                        .replace(/^0/, "+213 ")}
+                transform={(phone) => phoneFormat(phone)}
                 bind:value={phoneData.value}
                 bind:valid={phoneData.valid}
             />
@@ -141,7 +156,14 @@
                             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                         )}
                 transform={(email) =>
-                    email.trim().replace(/\s+/g, "").replace(/@+/g, "@")}
+                    email
+                        .trim()
+                        .toLowerCase()
+                        .replace(/\s+/g, "")
+                        .replace(/@+/g, "@")
+                        .replace(/\.+/g, ".")
+                        .replace(/[^a-zA-Z0-9@.]/g, "")
+                        .replace(/@+/g, "@")}
                 bind:value={emailData.value}
                 bind:valid={emailData.valid}
             />

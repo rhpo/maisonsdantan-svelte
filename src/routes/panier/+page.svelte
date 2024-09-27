@@ -52,8 +52,6 @@
         return parts.join(",");
     }
 
-    var calculation = 1231739216.34367;
-
     function calculatePrice(width, height, material) {
         return (
             Math.ceil(
@@ -74,7 +72,6 @@
                 !info.phone ||
                 !info.email ||
                 !info.address ||
-                !info.phone.match(/^\+213[0-9]{9}$/) ||
                 !info.email.match(
                     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                 )
@@ -130,11 +127,11 @@
         address: "",
     };
 
-    $: pending = !!$orderID;
+    $: pending = $orderID && $orderID !== "undefined";
     let details = [];
 
     onMount(() => {
-        if ($orderID) {
+        if (pending) {
             let url = $endpoint + "/check-order";
             try {
                 fetch(url, {
@@ -178,11 +175,29 @@
             }
         }
     });
+
+    function phoneFormat(phone) {
+        phone = phone
+            .replace(/\s+/g, "")
+            .replace(/[^0-9+]/g, "")
+            .replace("+213", "")
+            .replace("+", "")
+            .replace("0", "");
+
+        let parts = [];
+        let max = 3;
+
+        for (let i = 0; i < phone.length && parts.length < max; i += 3) {
+            parts.push(phone.slice(i, i + 3));
+        }
+
+        return "0" + parts.join(" ");
+    }
 </script>
 
 <Page centerX>
     <main>
-        {#if $orderID || pending}
+        {#if ($orderID && $orderID !== "undefined") || pending}
             <div class="empty">
                 <h1 class="message">
                     <big>
@@ -272,7 +287,7 @@
                                     </p>
                                 </div>
 
-                                <div class="recadrage">
+                                <!-- <div class="recadrage">
                                     <p>
                                         <u>Point de recadrage</u>
                                     </p>
@@ -284,7 +299,7 @@
                                             Y: {order.crop.left.toFixed(2)} cm
                                         </li>
                                     </ul>
-                                </div>
+                                </div> -->
                             </div>
 
                             <p class="id">
@@ -367,10 +382,7 @@
                                         icon={faPhone}
                                         type="tel"
                                         transform={(phone) =>
-                                            phone
-                                                .replace(/\s+/g, "")
-                                                .replace(/[^0-9+]/g, "")
-                                                .replace(/^0/, "+213 ")}
+                                            phoneFormat(phone)}
                                         bind:value={info.phone}
                                     />
                                 </div>
@@ -388,7 +400,11 @@
                                         transform={(email) =>
                                             email
                                                 .trim()
+                                                .toLowerCase()
                                                 .replace(/\s+/g, "")
+                                                .replace(/@+/g, "@")
+                                                .replace(/\.+/g, ".")
+                                                .replace(/[^a-zA-Z0-9@.]/g, "")
                                                 .replace(/@+/g, "@")}
                                         bind:value={info.email}
                                     />

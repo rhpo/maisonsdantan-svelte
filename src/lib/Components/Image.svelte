@@ -90,14 +90,14 @@
               : cropFrame && frame
                 ? cropFrame.offsetWidth / 2 - frame.offsetWidth / 2
                 : 0
-          }px; 
+          }px;
 
           ${
             dimensions.width && dimensions.height
               ? `aspect-ratio: ${dimensions.width} / ${dimensions.height};`
               : "width: 100%; height: 100%;"
           }
-          
+
           ${dimensions.width > dimensions.height ? "width" : "height"}: 100%;`}
         >
           {#if dimensions.width}
@@ -292,7 +292,6 @@
 
   .main.adapt img:not(.holder) {
     object-fit: unset;
-    height: fit-content !important;
   }
 
   @media screen and (max-width: 787px) {

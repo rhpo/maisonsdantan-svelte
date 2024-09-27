@@ -20,10 +20,15 @@
     } from "@fortawesome/free-solid-svg-icons";
 
     import Fa from "svelte-fa";
-    import { blur, fade, fly, scale } from "svelte/transition";
-    import { endpoint } from "$lib/store";
+    import { blur, fade, fly, scale, slide } from "svelte/transition";
+    import { endpoint, notification } from "$lib/store";
     import { onMount } from "svelte";
     import Indexer from "$lib/Components/ui/Indexer.svelte";
+    import Button from "$lib/Components/ui/Button.svelte";
+    import {
+        faCircleCheck,
+        faListAlt,
+    } from "@fortawesome/free-regular-svg-icons";
 
     let modelCategories = {
         all: "Tous",
@@ -88,7 +93,55 @@
             }
         }, 800);
     }
+
+    onMount(() => {
+        notification.set({
+            colors: {
+                background: "black",
+                text: "white",
+            },
+        });
+    });
+
+    let filterMenuOpen = false;
 </script>
+
+{#if filterMenuOpen}
+    <menu transition:slide={{ duration: 200, delay: 200, axis: "y" }}>
+        <div class="content">
+            <div class="filters">
+                <Choose
+                    name="Catégorie"
+                    choices={modelCategories}
+                    bind:choice={category}
+                    base={first(modelCategories)}
+                />
+
+                <Choose
+                    name="Trier par"
+                    choices={sortBy}
+                    bind:choice={sort}
+                    base={first(sortBy)}
+                />
+
+                <Choose
+                    name="Format"
+                    choices={modelShape}
+                    bind:choice={shape}
+                    base={first(modelShape)}
+                />
+            </div>
+
+            <Button
+                title="Appliquer les filtres"
+                icon={faCircleCheck}
+                color="var(--primary)"
+                background="var(--secondary)"
+                onClick={() => (filterMenuOpen = false)}
+            />
+        </div>
+    </menu>
+{/if}
 
 <div class="bartop">
     <Container>
@@ -124,11 +177,23 @@
                     />
                 </div>
 
-                <Input
-                    icon={faSearch}
-                    placeholder="Rechercher un Papier Peint"
-                    bind:value={search}
-                />
+                <div class="filter-button">
+                    <Button
+                        title="Filtrer"
+                        color="var(--primary)"
+                        background="var(--secondary)"
+                        icon={faListAlt}
+                        onClick={() => (filterMenuOpen = true)}
+                    />
+                </div>
+
+                <div class="searchbar">
+                    <Input
+                        icon={faSearch}
+                        placeholder="Rechercher..."
+                        bind:value={search}
+                    />
+                </div>
             </div>
         </div>
     </Container>
@@ -172,7 +237,6 @@
                     <a
                         class="product"
                         href={"/products/" + product.id}
-                        use:svelteTilt={{ max: 25, startX: 0 }}
                         data-id={product.id}
                         transition:scale={{ duration: 200, delay: i * 100 }}
                     >
@@ -220,6 +284,41 @@
 </Page>
 
 <style>
+    menu {
+        margin: 0;
+        padding: 0 2rem;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        width: 100%;
+        height: 100%;
+
+        background-color: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(5px);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    menu .content {
+        width: 100%;
+        max-width: calc(var(--maxw) / 1.5);
+
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: space-around;
+    }
+
+    .filter-button {
+        display: none;
+    }
+
     .screen {
         display: flex;
         flex-direction: column;
@@ -419,9 +518,8 @@
         gap: 0.5rem;
     }
 
-    .container > :global(*) {
-        flex: 1;
-        flex-basis: 0;
+    .container > .searchbar {
+        flex-grow: 1;
     }
 
     .filters {
@@ -463,8 +561,33 @@
     }
 
     @media screen and (max-width: 500px) {
-        .choices > :global(*) {
-            font-size: 0.5rem;
+        :global(html) {
+            --preferences-height: 60px !important;
+        }
+
+        .filters .container {
+            flex-direction: row;
+            gap: 0.5rem;
+        }
+
+        .searchbar > :global(*) {
+            width: 100% !important;
+        }
+
+        .searchbar {
+            flex-grow: 1;
+        }
+
+        .choices {
+            display: none;
+        }
+
+        .choices {
+            flex-direction: column;
+        }
+
+        .filter-button {
+            display: block;
         }
     }
 </style>

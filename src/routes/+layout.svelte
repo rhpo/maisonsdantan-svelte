@@ -25,7 +25,6 @@
   import { fade } from "svelte/transition";
 
   export let data;
-
   $: endpoint.set(data.endpoint);
 
   onMount(() => {
