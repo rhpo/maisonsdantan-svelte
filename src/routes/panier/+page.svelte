@@ -42,8 +42,8 @@
 
     let sortBy = {
         name: "Nom",
-        date: "Mise en ligne",
-        popularity: "Popularité",
+        date: "Nouveautés",
+        popularity: "Best Sellers",
     };
 
     function formatNum(x) {

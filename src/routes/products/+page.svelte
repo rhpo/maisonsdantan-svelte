@@ -31,7 +31,7 @@
     } from "@fortawesome/free-regular-svg-icons";
 
     let modelCategories = {
-        all: "Tous",
+        all: "Pièces",
         child: "Enfants",
         living: "Salon",
         kitchen: "Cuisine",
@@ -39,15 +39,15 @@
     };
 
     let modelShape = {
-        all: "Tous",
+        all: "Papier peint",
         pano: "Panoramique",
         pattern: "Motif",
     };
 
     let sortBy = {
-        name: "Nom",
-        date: "Mise en ligne",
-        popularity: "Popularité",
+        name: "",
+        date: "Nouveautés",
+        popularity: "Best Sellers",
     };
 
     function first(obj) {
@@ -111,17 +111,10 @@
         <div class="content">
             <div class="filters">
                 <Choose
-                    name="Catégorie"
+                    name=""
                     choices={modelCategories}
                     bind:choice={category}
                     base={first(modelCategories)}
-                />
-
-                <Choose
-                    name="Trier par"
-                    choices={sortBy}
-                    bind:choice={sort}
-                    base={first(sortBy)}
                 />
 
                 <Choose
@@ -129,6 +122,13 @@
                     choices={modelShape}
                     bind:choice={shape}
                     base={first(modelShape)}
+                />
+
+                <Choose
+                    name="Trier par"
+                    choices={sortBy}
+                    bind:choice={sort}
+                    base={first(sortBy)}
                 />
             </div>
 
@@ -156,10 +156,17 @@
             <div class="container">
                 <div class="choices">
                     <Choose
-                        name="Catégorie"
+                        name=""
                         choices={modelCategories}
                         bind:choice={category}
                         base={first(modelCategories)}
+                    />
+
+                    <Choose
+                        name=""
+                        choices={modelShape}
+                        bind:choice={shape}
+                        base={first(modelShape)}
                     />
 
                     <Choose
@@ -167,13 +174,6 @@
                         choices={sortBy}
                         bind:choice={sort}
                         base={first(sortBy)}
-                    />
-
-                    <Choose
-                        name="Format"
-                        choices={modelShape}
-                        bind:choice={shape}
-                        base={first(modelShape)}
                     />
                 </div>
 

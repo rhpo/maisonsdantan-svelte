@@ -20,6 +20,8 @@
   import I15 from "$lib/assets/models/15.jpg";
   import I16 from "$lib/assets/models/16.jpg";
   import { minLenArr, splitChunks } from "$lib/utility";
+  import Button from "$lib/Components/ui/Button.svelte";
+  import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 
   let images = [
     I1,
@@ -61,6 +63,12 @@
           de grandes dimensions.
         </p>
       </div>
+
+      <Button
+        url="/products"
+        title="DÉCOUVRIR NOS COLLECTIONS"
+        icon={faShoppingBag}
+      />
 
       <div class="images" data-aos="fade-left">
         {#each chunks as chunk}

@@ -11,7 +11,7 @@
         choice = base;
 
         choices[Object.keys(choices)[0]] =
-            name + " : " + choices[Object.keys(choices)[0]];
+            (name ? name + " " : "") + choices[Object.keys(choices)[0]];
     });
 </script>
 

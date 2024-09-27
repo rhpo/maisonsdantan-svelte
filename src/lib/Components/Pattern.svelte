@@ -44,17 +44,23 @@
   {#if Array.isArray(src)}
     {#each src as src, n}
       {#if n == i}
-        <img class="blur" {src} alt="ERR!" {...$$restProps} transition:fade />
+        <img
+          class="blur"
+          {src}
+          alt="Image Indisponible"
+          {...$$restProps}
+          transition:fade
+        />
       {/if}
     {/each}
   {:else}
-    <img {src} class="blur" alt="ERR!" {...$$restProps} />
+    <img {src} class="blur" alt="Image Indisponible" {...$$restProps} />
   {/if}
 
   <img
     class="holder"
     src={Array.isArray(src) ? src[i] : src}
-    alt="ERR!"
+    alt="Image Indisponible"
     {...$$restProps}
   />
 </div>

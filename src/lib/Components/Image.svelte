@@ -119,18 +119,18 @@
   {#if Array.isArray(src)}
     {#each src as src, n}
       {#if n == i}
-        <img {src} alt="ERR!" {...$$restProps} transition:fade />
+        <img {src} alt="Image Indisponible" {...$$restProps} transition:fade />
       {/if}
     {/each}
   {:else}
-    <img {src} alt="ERR!" {...$$restProps} />
+    <img {src} alt="Image Indisponible" {...$$restProps} />
   {/if}
 
   {#if adapt}
     <img
       class="holder"
       src={Array.isArray(src) ? src[i] : src}
-      alt="ERR!"
+      alt="Image Indisponible"
       {...$$restProps}
     />
   {/if}
