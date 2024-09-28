@@ -25,8 +25,22 @@
   };
   */
 
+  function preloadImages(array) {
+    if (!Array.isArray(array)) {
+      return;
+    } else if (typeof array === "string") {
+      new Image().src = array;
+    }
+
+    array.forEach((src) => {
+      new Image().src = src;
+    });
+  }
+
   let I;
   onMount(() => {
+    preloadImages(src);
+
     if (Array.isArray(src) && typeof i === "undefined") {
       i = 0;
 
