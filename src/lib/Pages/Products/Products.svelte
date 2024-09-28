@@ -522,8 +522,8 @@
                     </div>
                 </div>
 
+                <h2>Choisissez votre cadrage</h2>
                 <div class="visual">
-                    <h2>Choisissez votre cadrage</h2>
                     {#key $isMobile}
                         <div
                             class="image"
@@ -1013,6 +1013,16 @@
 
         .product {
             max-width: 100%;
+        }
+    }
+
+    @media (max-width: 1070px) {
+        .choices {
+            flex-direction: column;
+        }
+
+        .choice {
+            width: 100%;
         }
     }
 </style>
