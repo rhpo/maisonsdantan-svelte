@@ -45,7 +45,7 @@
     };
 
     let sortBy = {
-        name: "",
+        name: "Trier par",
         date: "Nouveautés",
         popularity: "Best Sellers",
     };
@@ -125,7 +125,7 @@
                 />
 
                 <Choose
-                    name="Trier par"
+                    name=""
                     choices={sortBy}
                     bind:choice={sort}
                     base={first(sortBy)}
@@ -170,7 +170,7 @@
                     />
 
                     <Choose
-                        name="Trier par"
+                        name=""
                         choices={sortBy}
                         bind:choice={sort}
                         base={first(sortBy)}
