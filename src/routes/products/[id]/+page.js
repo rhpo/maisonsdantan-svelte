@@ -14,10 +14,12 @@ export async function load({ params }) {
         return {
             product: data
         };
-    } else {
-        console.clear();
-        console.log(response)
-        return error(response.status, await response.text());
     }
+
+    // else {
+    //     console.clear();
+    //     console.log(response)
+    //     return error(response.status, await response.text());
+    // }
 
 }

@@ -63,7 +63,7 @@
 
     let materials = {
         rouleau: "En rouleau",
-        poster: "Poster",
+        poster: "Monobloc",
     };
 
     let modelShapes = {
@@ -440,16 +440,19 @@
 
                     <div class="step">
                         <p>* Choisissez le matériau de votre papier peint</p>
-                        {order.width / 100}m &times; {order.height / 100}m
-                        &times; {$configuration.price[order.material]}DA ({order.material})
-                        =
-                        {order.price} DA
+
                         <Choose
                             choices={materials}
                             bind:choice={order.material}
                             base={Object.keys(materials)[0]}
-                            name="Matériau"
+                            name=""
                         />
+
+                        <!-- order preview -->
+                        {order.width / 100}m &times; {order.height / 100}m
+                        &times; {$configuration.price[order.material]}DA ({order.material})
+                        =
+                        {order.price} DA
                     </div>
 
                     <div class="finish">
@@ -522,7 +525,10 @@
                     </div>
                 </div>
 
-                <h2>Choisissez votre cadrage</h2>
+                {#if product.shape !== "pattern"}
+                    <h2>Choisissez votre cadrage</h2>
+                {/if}
+
                 <div class="visual">
                     {#key $isMobile}
                         <div
