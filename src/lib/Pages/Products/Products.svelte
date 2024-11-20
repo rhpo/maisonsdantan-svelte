@@ -279,7 +279,7 @@
 
                     <p class="description">{product.description}</p>
                     <p class="subsubtext">
-                        Variants ({product.models.length}) - {product.models
+                        &times; ({product.models.length}) - {product.models
                             .map((model) => model.name)
                             .join(", ")}
                     </p>
