@@ -242,10 +242,26 @@
                     >
                         <div class="img-wrapper">
                             <div class="img">
-                                <Image
+                                <!-- old image where we used to show the
+                                 product's original watermarked image -->
+
+                                <!-- <Image
                                     src={product.models.map((model) => {
                                         return model.image;
                                     })}
+                                    interval={5000}
+                                /> -->
+
+                                <!-- new image where we show the shootings
+                                 instead... -->
+                                <Image
+                                    src={product.models
+                                        .map((model) => {
+                                            return model.shootings.map(
+                                                (s) => s.image,
+                                            );
+                                        })
+                                        .flat()}
                                     interval={5000}
                                 />
                             </div>

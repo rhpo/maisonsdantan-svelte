@@ -524,61 +524,6 @@
                         />
                     </div>
                 </div>
-
-                {#if product.shape !== "pattern"}
-                    <h2>Choisissez votre cadrage</h2>
-                {/if}
-
-                <div class="visual">
-                    {#key $isMobile}
-                        <div
-                            class="image"
-                            bind:this={imageFrame}
-                            use:svelteTilt={{
-                                startX: $isMobile ? 0 : MAX_X,
-                                speed: 1000,
-                                max: $isMobile ? 0 : MAX_X,
-                                glare: !$isMobile && MAX_X,
-                            }}
-                        >
-                            {#if product.shape === "pano"}
-                                <Image
-                                    src={product.models.map(
-                                        (model) => model.image,
-                                    )}
-                                    i={currentModel}
-                                    adapt
-                                    bind:crop={imageCrop}
-                                    dimensions={{
-                                        width: order.width,
-                                        height: order.height,
-                                    }}
-                                    onClick={() => openCropMenu()}
-                                />
-                            {:else if product.shape === "pattern"}
-                                <Image
-                                    src={product.models.map(
-                                        (model) => model.image,
-                                    )}
-                                    i={currentModel}
-                                    adapt
-                                />
-                            {/if}
-                        </div>
-                    {/key}
-
-                    <div class="sub-images">
-                        {#each product.models as model, index}
-                            <button
-                                class="sub-image"
-                                on:click={() => (currentModel = index)}
-                                class:active={currentModel === index}
-                            >
-                                <img src={model.image} alt={model.name} />
-                            </button>
-                        {/each}
-                    </div>
-                </div>
             </div>
         </div>
     </main>
