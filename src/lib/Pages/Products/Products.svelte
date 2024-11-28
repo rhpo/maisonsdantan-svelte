@@ -400,7 +400,8 @@
                         </div>
                     </div>
 
-                    {#if product.shape === "pano"}
+                    <!-- Strategic decision: Remove Redimention Panel -->
+                    <!-- {#if product.shape === "pano"}
                         <div class="step">
                             <p>* Redimensionnez votre papier peint</p>
 
@@ -436,7 +437,7 @@
                                 </div>
                             {/key}
                         </div>
-                    {/if}
+                    {/if} -->
 
                     <div class="step">
                         <p>* Choisissez le matériau de votre papier peint</p>
