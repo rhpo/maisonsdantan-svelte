@@ -71,7 +71,6 @@
 
 {#if $endpoint}
   <NavBar />
-  {console.log($endpoint)}
 
   <slot />
   <Footer />

@@ -91,6 +91,7 @@
         aspect-ratio: 1 / 1;
 
         font-size: 0.7rem;
+        color: rgb(99, 99, 99);
 
         border: none;
         padding: 0.5rem;
@@ -116,6 +117,7 @@
 
     button.index {
         background-color: transparent;
+        opacity: 0.5;
     }
 
     button.index:not(:disabled):hover {
@@ -124,9 +126,8 @@
 
     button.index.active {
         font-weight: bold;
-        text-decoration: underline;
-
         border-radius: 0;
+        opacity: 1;
         border: 1px solid var(--secsub);
     }
 </style>

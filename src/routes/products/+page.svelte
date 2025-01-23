@@ -17,6 +17,7 @@
         faSearch,
         faSpinner,
         faQuestion,
+        faFaceSadCry,
     } from "@fortawesome/free-solid-svg-icons";
 
     import Fa from "svelte-fa";
@@ -29,6 +30,8 @@
         faCircleCheck,
         faListAlt,
     } from "@fortawesome/free-regular-svg-icons";
+    import Long from "$lib/Components/ui/Long.svelte";
+    import { text } from "@sveltejs/kit";
 
     let modelCategories = {
         all: "Pièces",
@@ -199,7 +202,7 @@
     </Container>
 </div>
 
-{#if products.length === 0 || state !== "loaded"}
+{#if state !== "loaded"}
     <div
         class="state"
         transition:fade={{
@@ -232,74 +235,113 @@
 >
     <div class="wrapper">
         <div class="products">
-            {#each products as product, i}
-                {#key (products, product.id, api)}
-                    <a
-                        class="product"
-                        href={"/products/" + product.id}
-                        data-id={product.id}
-                        transition:scale={{ duration: 200, delay: i * 100 }}
-                    >
-                        <div class="img-wrapper">
-                            <div class="img">
-                                <!-- old image where we used to show the
-                                 product's original watermarked image -->
-
-                                <!-- <Image
-                                    src={product.models.map((model) => {
-                                        return model.image;
-                                    })}
-                                    interval={5000}
-                                /> -->
-
-                                <!-- new image where we show the shootings
-                                 instead... -->
-                                <Image
-                                    src={product.models
-                                        .map((model) => {
-                                            return model.shootings.map(
-                                                (s) => s.image,
-                                            );
-                                        })
-                                        .flat()}
-                                    interval={5000}
-                                />
-                            </div>
+            {#if products.length === 0}
+                <div class="not-found-wrapper">
+                    <div class="not-found">
+                        <div class="not-found-icon">
+                            <Fa icon={faFaceSadCry} />
                         </div>
+                        <h1>Aucun produit</h1>
+                    </div>
+                </div>
+            {:else}
+                {#each products as product, i}
+                    {#key (products, product.id, api)}
+                        <a
+                            class="product"
+                            href={"/products/" + product.id}
+                            data-id={product.id}
+                            transition:scale={{ duration: 200, delay: i * 100 }}
+                        >
+                            <div class="img-wrapper">
+                                <div class="img">
+                                    <!-- old image where we used to show the
+                             product's original watermarked image -->
 
-                        <div class="info">
-                            <div class="branding">
-                                <h1
-                                    class="name"
-                                    class:smaller={product.name.length > 16}
-                                >
-                                    {product.name}
-                                </h1>
-                                <p class="details">
-                                    {modelShape[product.shape]} | {modelCategories[
-                                        product.category
-                                    ]}
+                                    <!-- <Image
+                                src={product.models.map((model) => {
+                                    return model.image;
+                                })}
+                                interval={5000}
+                            /> -->
+
+                                    <!-- new image where we show the shootings
+                             instead... -->
+                                    <Image
+                                        src={product.models
+                                            .map((model) => {
+                                                return model.shootings.map(
+                                                    (s) => s.image,
+                                                );
+                                            })
+                                            .flat()}
+                                        interval={5000}
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="info">
+                                <div class="branding">
+                                    <h1
+                                        class="name"
+                                        class:smaller={product.name.length > 16}
+                                    >
+                                        {product.name}
+                                    </h1>
+                                    <p class="details">
+                                        {modelShape[product.shape]} | {modelCategories[
+                                            product.category
+                                        ]}
+                                    </p>
+                                </div>
+                                <p class="description">
+                                    <Long text={product.description} />
                                 </p>
                             </div>
-                            <p class="description">{product.description}</p>
-                        </div>
 
-                        <!-- <div class="models">
-                        {#each product.models as model}
-                            <div class="model">
-                                <h2>{model.name}</h2>
-                                <p>{model.id}</p>
-                            </div>
-                        {/each}
-                    </div> -->
-                    </a>
-                {/key}
-            {/each}
+                            <!-- <div class="models">
+                    {#each product.models as model}
+                        <div class="model">
+                            <h2>{model.name}</h2>
+                            <p>{model.id}</p>
+                        </div>
+                    {/each}
+                </div> -->
+                        </a>
+                    {/key}
+                {/each}
+            {/if}
         </div>
     </div>
 </Page>
 
 <style>
+    .not-found-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+    }
+
+    .not-found-icon {
+        font-size: 3rem;
+    }
+
+    .not-found {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .not-found h1 {
+        font-size: 1.5rem;
+        width: 100%;
+    }
+
     menu {
         margin: 0;
         padding: 0 2rem;
@@ -373,14 +415,16 @@
     }
 
     .bartop {
-        background-color: var(--sub);
-
+        background-color: var(--primary);
         width: 100%;
 
         position: fixed;
         z-index: 1;
         top: var(--nav-height);
         left: 0;
+
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        /* bottom shadow */
 
         height: var(--preferences-height);
         display: flex;

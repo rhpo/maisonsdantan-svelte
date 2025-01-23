@@ -95,7 +95,7 @@
         color: var(--alt);
         border: none;
         border-radius: var(--radius);
-        border: 1px solid var(--alt);
+        border: 1px solid rgba(0, 0, 0, 0.1);
     }
 
     .wrapper,
@@ -127,7 +127,7 @@
         border: none;
         outline: none;
 
-        font-size: 1.1rem;
+        font-size: 0.93rem;
 
         width: 100%;
 

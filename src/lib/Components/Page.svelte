@@ -62,7 +62,8 @@
                         Site en construction
                     </h1>
 
-                    <p>
+                    <!-- owner wanted deletion -->
+                    <!-- <p>
                         Pour toute question ou demande, contactez-nous via
                         WhatsApp ou Instagram. Pour découvrir nos modèles,
                         visitez notre page Instagram ou consultez notre
@@ -71,7 +72,7 @@
                             target="_blank"
                             rel="noopener noreferrer">catalogue</a
                         >.
-                    </p>
+                    </p> -->
                 </div>
 
                 <p>

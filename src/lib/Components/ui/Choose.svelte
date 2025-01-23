@@ -46,6 +46,8 @@
         border: 1px solid #ccc;
         border-radius: 0.25rem;
 
+        background-color: #f9f9f9;
+
         font-family: var(--f-third);
 
         text-transform: uppercase;

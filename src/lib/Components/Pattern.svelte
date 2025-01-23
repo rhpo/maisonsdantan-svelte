@@ -47,20 +47,20 @@
         <img
           class="blur"
           {src}
-          alt="Image Indisponible"
+          alt="Chargement..."
           {...$$restProps}
           transition:fade
         />
       {/if}
     {/each}
   {:else}
-    <img {src} class="blur" alt="Image Indisponible" {...$$restProps} />
+    <img {src} class="blur" alt="Chargement..." {...$$restProps} />
   {/if}
 
   <img
     class="holder"
     src={Array.isArray(src) ? src[i] : src}
-    alt="Image Indisponible"
+    alt="Chargement..."
     {...$$restProps}
   />
 </div>

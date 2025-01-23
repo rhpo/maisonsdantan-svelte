@@ -20,6 +20,7 @@
     import { blur, fade, fly, scale } from "svelte/transition";
     import Fa from "svelte-fa";
     import { onMount } from "svelte";
+    import Image from "$lib/Components/Image.svelte";
 
     let modelCategories = {
         all: "Tous",
@@ -332,10 +333,11 @@
                     </div>
 
                     <div class="visual">
-                        <img
-                            src={order.product.models.find(
-                                (model) => model.id === order.model,
-                            ).image}
+                        <Image
+                            src={order.product.models
+                                .find((model) => model.id === order.model)
+                                .shootings.map((shooting) => shooting.image)
+                                .flat()}
                             alt=""
                         />
                     </div>

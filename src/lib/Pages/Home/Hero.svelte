@@ -80,7 +80,7 @@
   }
 
   .info h1 {
-    font-size: 4rem;
+    font-size: 3.5rem;
     font-family: var(--primary);
 
     letter-spacing: 0.35rem;
@@ -89,7 +89,8 @@
   }
 
   .subtext {
-    font-size: 2rem;
+    font-size: 1.5rem;
+    opacity: 0.6;
     font-family: var(--third);
     font-weight: 500;
   }

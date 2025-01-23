@@ -133,18 +133,18 @@
   {#if Array.isArray(src)}
     {#each src as src, n}
       {#if n == i}
-        <img {src} alt="Image Indisponible" {...$$restProps} transition:fade />
+        <img {src} alt="Chargement..." {...$$restProps} transition:fade />
       {/if}
     {/each}
   {:else}
-    <img {src} alt="Image Indisponible" {...$$restProps} />
+    <img {src} alt="Chargement..." {...$$restProps} />
   {/if}
 
   {#if adapt}
     <img
       class="holder"
       src={Array.isArray(src) ? src[i] : src}
-      alt="Image Indisponible"
+      alt="Chargement..."
       {...$$restProps}
     />
   {/if}

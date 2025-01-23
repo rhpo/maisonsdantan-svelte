@@ -77,7 +77,7 @@
               <div class="brand">
                 <span class="revert"
                   ><img src={codiha} width="15rem" alt="" /></span
-                > Codiha
+                > Codiha (0553 238 410)
               </div>
             </a>
           </div>
@@ -138,7 +138,7 @@
           <div class="info">
             <u>Acceuil Téléphonique</u>
             <ul>
-              <li>De Samedi à Jeudi</li>
+              <li>De samedi à jeudi.</li>
             </ul>
           </div>
 

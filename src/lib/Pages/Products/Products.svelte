@@ -173,13 +173,18 @@
 
     function checkOrder() {
         if (!defined(order.crop.top) || !defined(order.crop.left)) {
-            if (order.shape === "pattern") {
-                order.crop.top = 0;
-                order.crop.left = 0;
-            } else {
-                alert("Veuillez redimensionner votre papier peint.");
-                return;
-            }
+            // We do not care about the shape anymore, crop function has been removed
+
+            // if (order.shape === "pattern") {
+            //     order.crop.top = 0;
+            //     order.crop.left = 0;
+            // } else {
+            //     alert("Veuillez redimensionner votre papier peint.");
+            //     return;
+            // }
+
+            order.crop.top = 0;
+            order.crop.left = 0;
         }
 
         if (

@@ -4,8 +4,8 @@
   /* Palette */
   --primary: #ffffff;
   --secondary: #1d1d1d;
-  --alt: #b4b4b4;
-  --sub: #f3f3f3;
+  --alt: rgb(218, 218, 218);
+  --sub: #f7f7f7;
   --secsub: #ececec;
   --text: rgb(41, 60, 122);
   --red: #ff0000;
