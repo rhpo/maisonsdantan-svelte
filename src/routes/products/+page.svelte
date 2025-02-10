@@ -104,6 +104,12 @@
                 text: "white",
             },
         });
+
+        page = +localStorage.getItem("page") || 1;
+        category = localStorage.getItem("category") || category;
+        shape = localStorage.getItem("shape") || shape;
+        sort = localStorage.getItem("sort") || sort;
+        search = localStorage.getItem("search") || search;
     });
 
     let filterMenuOpen = false;

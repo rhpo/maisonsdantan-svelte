@@ -9,6 +9,11 @@
     export let total;
 
     let max = 5;
+
+    $: {
+        if (typeof localStorage !== "undefined")
+            localStorage.setItem("page", page);
+    }
 </script>
 
 <div class="component">
