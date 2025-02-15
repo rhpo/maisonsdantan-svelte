@@ -11,7 +11,7 @@
   --red: #ff0000;
 
   --stroke-w: 4px;
-  --logo-gap: 0.3rem;
+  --logo-gap: 0.2rem;
   --sticker-size: 65px;
 
   --progress: 0;
@@ -26,7 +26,7 @@
   --logo-color: var(--secondary);
 
   /* Screen */
-  --maxw: 1200px;
+  --maxw: 1500px;
   --inner-maxw: 800px;
   --margin: 8rem;
 
@@ -50,7 +50,7 @@
   --n-color: white;
 
   /* Animation */
-  --animation-duration: 0.3s;
+  --animation-duration: 0.2s;
 
   /* Fonts */
   --f-primary: "Gilda Display", serif;

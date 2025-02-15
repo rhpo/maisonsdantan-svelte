@@ -1,6 +1,7 @@
 <script>
     import Image from "$lib/Components/Image.svelte";
     import svelteTilt from "vanilla-tilt-svelte";
+    import { tippy } from "svelte-tippy";
     import Container from "$lib/Components/Container.svelte";
     import Page from "$lib/Components/Page.svelte";
     import Choose from "$lib/Components/ui/Choose.svelte";
@@ -63,7 +64,7 @@
     let search = "";
 
     let timeoutSearch = null;
-    let limit = 12;
+    let limit = 25;
     let page = 1;
 
     $: api =
@@ -84,11 +85,16 @@
 
             try {
                 fetch(api)
-                    .then((res) => res.json())
+                    .then((res) => res.text())
                     .then((data) => {
-                        products = data.products;
-                        total = data.total;
-                        state = "loaded";
+                        try {
+                            data = JSON.parse(data);
+                            products = data.products;
+                            total = data.total;
+                            state = "loaded";
+                        } catch {
+                            state = "error";
+                        }
                     });
             } catch {
                 products = [];
@@ -257,6 +263,12 @@
                             class="product"
                             href={"/products/" + product.id}
                             data-id={product.id}
+                            use:tippy={{
+                                content: product.description,
+                                placement: "right",
+                                arrow: true,
+                                animation: "perspective",
+                            }}
                             transition:scale={{ duration: 200, delay: i * 100 }}
                         >
                             <div class="img-wrapper">
@@ -328,6 +340,11 @@
         align-items: center;
         height: 100%;
         width: 100%;
+    }
+
+    /* change tippy font */
+    :global(.tippy-content) {
+        font-family: "Inter", sans-serif !important;
     }
 
     .not-found-icon {

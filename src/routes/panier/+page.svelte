@@ -474,7 +474,7 @@
     }
 
     .empty .message {
-        text-align: left;
+        text-align: center;
         display: flex;
         flex-direction: column;
         gap: 1rem;

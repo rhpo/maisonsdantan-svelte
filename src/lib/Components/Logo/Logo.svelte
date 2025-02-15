@@ -5,7 +5,7 @@
   export let animate = true;
 </script>
 
-<a class="logo" href="/">
+<a class="logo" href="/" data-aos="flip-left">
   <div class="wrapper" class:animate>
     <div class="part">
       <Maisons />
@@ -19,7 +19,7 @@
 
 <style>
   *,
-  :global(.part *) {
+  :global(.logo *) {
     transition: all var(--animation-duration) ease;
   }
 
@@ -32,6 +32,13 @@
     align-items: center;
 
     height: 100%;
+    width: 100%;
+
+    transition: all var(--animation-duration);
+
+    filter: blur(50px);
+    transform: perspective(2500px) rotateY(-120deg);
+    animation: flip-left 4s ease-in-out forwards;
   }
 
   :global(.logo.shrunk) {
@@ -64,13 +71,17 @@
 
   :global(.animate .part path) {
     stroke-width: var(--stroke-w);
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
+    stroke-width: 5px;
+    stroke-dasharray: 1500;
+    stroke-dashoffset: 1500;
     stroke-linecap: round;
     stroke-linejoin: round;
-    fill: transparent;
+    fill: rgba(62, 62, 62, 0);
     stroke: #3e3e3e;
-    animation: logo-animation 6s cubic-bezier(0.34, 0, 0.62, 0.15) both;
+
+    transform-origin: center center;
+
+    animation: logo-animation 7s cubic-bezier(0.34, 0, 0.62, 0.15) forwards;
   }
 
   :global(.logo:hover *) {
@@ -88,17 +99,32 @@
       stroke-opacity: 0.6;
     }
     15% {
-      fill: transparent;
+      fill: rgba(62, 62, 62, 0);
     }
     55% {
-      fill: var(--logo-color);
       stroke-dashoffset: 0;
       stroke-opacity: 1;
+      transform: rotateY(0deg);
     }
     100% {
-      fill: var(--logo-color);
+      fill: rgba(0, 0, 0, 1);
       stroke-dashoffset: 0;
       stroke-width: 0;
+    }
+  }
+
+  @keyframes flip-left {
+    0% {
+      filter: blur(50px);
+      transform: perspective(2500px) rotateY(-120deg);
+    }
+
+    60% {
+      filter: blur(0px);
+    }
+    100% {
+      filter: blur(0px);
+      transform: perspective(2500px) rotateY(0deg);
     }
   }
 </style>

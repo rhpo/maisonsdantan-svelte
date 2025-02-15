@@ -122,7 +122,7 @@
                         <Hamburger bind:open />
                     </div>
 
-                    <div class="logo-wrapper">
+                    <div class="logo-wrap">
                         <Logo />
                     </div>
 
@@ -339,8 +339,9 @@
         display: none;
     }
 
-    .logo-wrapper {
+    .logo-wrap {
         height: 100%;
+        transition: all var(--animation-duration) ease;
         max-height: calc(var(--header-height) * var(--nav-scalar));
     }
 
@@ -394,7 +395,7 @@
     }
 
     @media screen and (max-width: 420px) {
-        .logo-wrapper {
+        .logo-wrap {
             height: fit-content;
         }
     }
