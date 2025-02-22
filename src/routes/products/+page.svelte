@@ -269,7 +269,6 @@
                                 arrow: true,
                                 animation: "perspective",
                             }}
-                            transition:scale={{ duration: 200, delay: i * 100 }}
                         >
                             <div class="img-wrapper">
                                 <div class="img">
