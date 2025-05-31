@@ -34,6 +34,8 @@
     import Long from "$lib/Components/ui/Long.svelte";
     import { text } from "@sveltejs/kit";
 
+    let loaded = false;
+
     let modelCategories = {
         all: "Pièces",
         child: "Enfants",
@@ -77,33 +79,40 @@
     let state = "loading";
 
     $: {
-        state = "loading";
-        clearTimeout(timeoutSearch);
+        if (loaded) {
+            state = "loading";
+            clearTimeout(timeoutSearch);
 
-        timeoutSearch = setTimeout(() => {
-            products = [];
-
-            try {
-                fetch(api)
-                    .then((res) => res.text())
-                    .then((data) => {
-                        try {
-                            data = JSON.parse(data);
-                            products = data.products;
-                            total = data.total;
-                            state = "loaded";
-                        } catch {
-                            state = "error";
-                        }
-                    });
-            } catch {
+            timeoutSearch = setTimeout(() => {
                 products = [];
-                state = "error";
-            }
-        }, 800);
+
+                try {
+                    fetch(api, {
+                        headers: {
+                            Host: "maisonsdantan.co",
+                        },
+                    })
+                        .then((res) => res.text())
+                        .then((data) => {
+                            try {
+                                data = JSON.parse(data);
+                                products = data.products;
+                                total = data.total;
+                                state = "loaded";
+                            } catch {
+                                state = "error";
+                            }
+                        });
+                } catch {
+                    products = [];
+                    state = "error";
+                }
+            }, 800);
+        }
     }
 
     onMount(() => {
+        loaded = true;
         notification.set({
             colors: {
                 background: "black",

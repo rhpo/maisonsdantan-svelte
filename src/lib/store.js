@@ -3,7 +3,7 @@ import { writable } from 'svelte/store';
 import { faShippingFast } from '@fortawesome/free-solid-svg-icons';
 import cardImage from "$lib/assets/card.jpg";
 
-export let endpoint = writable("https://server.codiha.com");
+export let endpoint = writable("https://maisonsdantan.codiha.online");
 export let darkMode = writable(false);
 
 export const notification = writable({

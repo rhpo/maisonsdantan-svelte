@@ -24,9 +24,6 @@
   import { navigating } from "$app/stores";
   import { fade } from "svelte/transition";
 
-  export let data;
-  $: endpoint.set(data.endpoint);
-
   onMount(() => {
     function css(name, value) {
       document.documentElement.style.setProperty("--" + name, value);
